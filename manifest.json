@@ -13,7 +13,7 @@
    "activeTab"
  ],
  "content_scripts": [{
-    "matches": ["https://customersupport.squarespace.com/squarespace-admin/support/*", "https://customercare.squarespace.com/squarespace-admin/support/*"],
+    "matches": ["https://customercare.squarespace.com/squarespace-admin/support/*", "https://customersupport.squarespace.com/squarespace-admin/support/*"],
     "js":      ["content.js"]
   }]
 }
