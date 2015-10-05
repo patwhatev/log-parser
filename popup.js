@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
+
   var loadButton = document.getElementById('loadData');
   loadButton.addEventListener('click', function() {
-    
-    console.log("button has been clicked!");
-    //until hasMore == false do 
-    document.querySelector('.load-more').click();
-        
 
+    chrome.tabs.getSelected(null, function(tab) {
+        chrome.tabs.sendMessage(tab.id, { text: "BUTTON_CLICKED" });
     });
+
+  });
+
   }, false);
-}, false);
