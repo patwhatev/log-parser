@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
 
-  "name": "SS Admin Search Tool ",
-  "description": "This extension will help you search the events tab of the admin lookup",
-  "version": "1.0",
+  "name": "SS Event Loader",
+  "description": "This extension will help you load the entirety of the events tab of the admin lookup with just one click.",
+  "version": "1.1",
 
   "browser_action": {
    "default_icon": "icon.png",
