@@ -7,8 +7,9 @@ var intervalFunc = setInterval(function() {
     }
     else {
     	clearInterval(intervalFunc);
-      chrome.tabs.getSelected(null, function(tab) {
-        chrome.tabs.sendMessage(tab.id, { text: "EVENTS_LOADED" });
+      
+      chrome.runtime.sendMessage({
+       text:    'EVENTS_LOADED'
       });
     }
   }, 500);  
