@@ -1,0 +1,12 @@
+.animation {
+	background-color: white !important;
+	opacity: .1;
+}
+
+.animation-gif {
+	z-index: 500;
+	background-image: url(http://www.arabianbusiness.com/skins/ab.main/gfx/loading_spinner.gif);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+    background-position: center; 
+}
