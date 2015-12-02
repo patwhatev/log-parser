@@ -1,12 +1,31 @@
-.animation {
-	background-color: white !important;
-	opacity: .1;
+body {
+	background-color: #ffcce6;
+	width: 300px;
 }
 
-.animation-gif {
-	z-index: 500;
-	background-image: url(http://www.arabianbusiness.com/skins/ab.main/gfx/loading_spinner.gif);
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-    background-position: center; 
+h4, h1 {
+	color: #fff;
+	font-weight: lighter;
+}
+
+h4 {
+	line-height: 1.6em; 
+	font-size: 13px;
+}
+
+input {
+	float:center; 
+	width: 55%; 
+	height: 15%; 
+	vertical-align: bottom;
+}
+
+#filterData {
+	color:black; 
+	font-size: 1.2em; 
+	font-weight: thin; 
+	float: right; 
+	border: black 1px solid; 
+	background-color: #fff; outline:0; 
+	margin-bottom: 10px;
 }
