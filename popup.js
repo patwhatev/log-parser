@@ -9,10 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+  // Grab button id
   var filterButton = document.getElementById('filterData');
+  // When button is clicked
   filterButton.addEventListener('click', function() {
+    // Get selected tabs, send current tab, a job name, and some vars
     chrome.tabs.getSelected(null, function(tab) {
-        chrome.tabs.sendMessage(tab.id, { text: "FILTER_BUTTON_CLICKED", filter: document.querySelector('.undesiredWord').value, replace: document.querySelector('.replaceWith').value });
+        chrome.tabs.sendMessage(tab.id, { text: "FILTER_BUTTON_CLICKED", filter: 'failing' });
     });
 
   });
