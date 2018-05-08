@@ -129,8 +129,8 @@ const cleanAndSortDOM = () => {
     });
 
     // create titles
-    let passtitle = insertElement('h4', 'title pass', 'div[class="passbox"]', `Passing Runs (${passCount})`, 'position:fixed;', true);
-    let failtitle = insertElement('h4', 'title fail', 'div[class="failbox"]', `Failing Runs (${failCount})`, 'position:fixed;', true);
+    let passtitle = insertElement('h4', 'title pass', 'div[class="passbox"]', `Passing Tests (${passCount})`, 'position:fixed;', true);
+    let failtitle = insertElement('h4', 'title fail', 'div[class="failbox"]', `Failing Tests (${failCount})`, 'position:fixed;', true);
     document.body.setAttribute('style', 'font-family: helvetica');
 
   });
