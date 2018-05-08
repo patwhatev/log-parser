@@ -1,34 +1,7 @@
-// Setting up new model for rapid string splitting, sorting, replacing and formatting
-
-// First, split the bulk string into testRuns 
-
-// Once we have our test run, do some formatting
-// Remove erroneous data: let cleaned = testRun.replace(/\[(.*?)\]/gm, "");
-
-// Create new elements for each testRun
-// Use css/jquery to place failing tests up top, passing tests in sidebar? 
-// ^^ assign classes determining where these should go
-
-
-// Remove existing text from dom once stored
-
-// let existingText = document.querySelector('pre');
-
-// existingText.parentNode.removeChild(existingText);
-
-
-
-
-// Create new element in the DOM 
-
-// let newNode = document.createElement('div');
-// let textNode = document.createTextNode(cleaned);
-// newNode.appendChild(textNode);
-
-// var elem = document.body;
-// elem.appendChild(newNode)
-
+// Retrieve giant string, break tests into individual runs
+// and separate run summary from test run summary
 const getTestRuns = (callback) => {
+
   let textBlob = document.querySelector('pre').textContent;
   let testRuns = textBlob.split('------------------------------------------------------------------');
 
@@ -44,11 +17,12 @@ const getTestRuns = (callback) => {
     suiteSummary = suiteSummary[0];
   }
   
-  // return testRuns;
   callback(testRuns, suiteSummary);
 }
 
+// Basic concept for quickly implementing new node elems
 const insertElement = (tag, className, appendTarget, value, styles, prepend) => {
+
   // create element and find target
   let item = document.createElement(tag);
   let target = document.querySelector(appendTarget);
@@ -70,9 +44,11 @@ const insertElement = (tag, className, appendTarget, value, styles, prepend) => 
   }
 }
 
-
+// Main sync function to pull,sort,and scaffold DOM
 const cleanAndSortDOM = () => {
+  
   getTestRuns((testRuns, suiteSummary) => {
+
     // remove existing test results
     let existingText = document.querySelector('pre');
     existingText.parentNode.removeChild(existingText);
