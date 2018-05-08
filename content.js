@@ -31,83 +31,108 @@
 const getTestRuns = (callback) => {
   let textBlob = document.querySelector('pre').textContent;
   let testRuns = textBlob.split('------------------------------------------------------------------');
+
+  let lastRun = testRuns[testRuns.length - 1].split('==================================================================');
+  let suiteSummary = null
+
+  if(lastRun.length === 2) {
+    // disclude summary from final test run
+    testRuns[testRuns.length - 1] = lastRun[0];
+    // properly format test summary
+    suiteSummary = lastRun[lastRun.length - 1];
+    suiteSummary = suiteSummary.split('1) ');
+    suiteSummary = suiteSummary[0];
+  }
   
   // return testRuns;
-  callback(testRuns);
+  callback(testRuns, suiteSummary);
 }
 
-const insertElement = (tag, className, appendTarget, value, styles) => {
+const insertElement = (tag, className, appendTarget, value, styles, prepend) => {
   // create element and find target
   let item = document.createElement(tag);
   let target = document.querySelector(appendTarget);
-
-  console.log(`current style eval: ${styles !== undefined} . . . retrieved styles: ${styles}`);
 
   // Set text if appropriate
   if (value !== undefined) {
     item.textContent = value;
   } else if (styles !== undefined) {
-    console.log(`set styles: ${styles}`);
     item.setAttribute('style', styles);
   }
 
   // set attrs and append to target
   item.setAttribute('class', className);
   
-  return target.appendChild(item);
+  if(prepend) {
+    return target.prepend(item);
+  } else {
+    return target.appendChild(item);    
+  }
 }
 
 
 const cleanAndSortDOM = () => {
-  getTestRuns(testRuns => {
+  getTestRuns((testRuns, suiteSummary) => {
     // remove existing test results
     let existingText = document.querySelector('pre');
     existingText.parentNode.removeChild(existingText);
 
+    // create session summary
+    let summary = insertElement('pre', 'summary', 'body', suiteSummary, 'font-family: helvetica');
+    summary.setAttribute('style', 'font-family:helvetica;');
+
     // create pass and fail boxes
     const fails = insertElement('div', 'failbox', 'body');
-    fails.setAttribute('style', 'float:left; width:65%; overflow:hidden;');
+    fails.setAttribute('style', 'float:left; width:65%; overflow:hidden; margin-top:-12px;');
     const passes = insertElement('div', 'passbox', 'body');
     passes.setAttribute('style', 'margin-left:65%;');
 
-    insertElement('h2', 'title pass', 'div[class="passbox"]', 'Passing Runs', 'position:fixed;');
-    insertElement('h2', 'title fail', 'div[class="failbox"]', 'Failing Runs', 'position:fixed;');
-
+    // create scrollboxes for p/f
     const passBox = insertElement('div', 'testPasses', 'div[class="passbox"]');
     passBox.setAttribute('style', 'height:90%; overflow: auto;');
     const failBox = insertElement('div', 'testFails', 'div[class="failbox"]');
     failBox.setAttribute('style', 'height:90%; overflow: auto;');
 
+    // counters
+    let failCount = 0;
+    let passCount = 0;
 
-    // payload test runs into body
+    // iterate over runs.. payload test runs into boxes
     testRuns.forEach(run => {
 
+      // remove browser/os stamps
       let cleaned = run.replace(/\[(.*?)\]/gm, "");
 
-      console.log('logging new cleaned var: ')
-      console.log(cleaned);
-
+      // create pre tag to preserve format, set styles
       let newNode = document.createElement('pre');
       let br = document.createElement('br');
       let textNode = document.createTextNode(cleaned);
-
       newNode.appendChild(textNode);
-      newNode.setAttribute('style', 'margin:0px20px; font-family:helvetica; background-color:#ddd');
+      newNode.setAttribute('style', 'margin:0px20px; font-family:helvetica; overflow: scroll;');
 
-      console.log(`running failing check: ${cleaned.includes('failing')}`);
-
+      // determine if spec failed
       let failing = cleaned.includes('failing');
 
       // Send run to one of two boxes
       if(failing) {
+        newNode.setAttribute('style', 'background-color:#f9a290;')
         failBox.appendChild(newNode);
         failBox.appendChild(br);
+        failCount += 1;
       } else {
+        newNode.setAttribute('style', 'background-color:#96cc9f;')
         passBox.appendChild(newNode);
         passBox.appendChild(br);
+        passCount += 1;
       }
       
     });
+
+    // create titles
+    let passtitle = insertElement('h4', 'title pass', 'div[class="passbox"]', `Passing Runs (${passCount})`, 'position:fixed;', true);
+    let failtitle = insertElement('h4', 'title fail', 'div[class="failbox"]', `Failing Runs (${failCount})`, 'position:fixed;', true);
+    document.body.setAttribute('style', 'font-family: helvetica');
+
   });
 };
 
