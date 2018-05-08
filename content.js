@@ -46,7 +46,7 @@ const insertElement = (tag, className, appendTarget, value, styles, prepend) => 
 
 // Main sync function to pull,sort,and scaffold DOM
 const cleanAndSortDOM = () => {
-  
+
   getTestRuns((testRuns, suiteSummary) => {
 
     // remove existing test results
@@ -91,12 +91,12 @@ const cleanAndSortDOM = () => {
 
       // Send run to one of two boxes
       if(failing) {
-        newNode.setAttribute('style', 'background-color:#f9a290;')
+        newNode.setAttribute('style', 'background-color:#f9a290; overflow:scroll;')
         failBox.appendChild(newNode);
         failBox.appendChild(br);
         failCount += 1;
       } else {
-        newNode.setAttribute('style', 'background-color:#96cc9f;')
+        newNode.setAttribute('style', 'background-color:#96cc9f; overflow:scroll;')
         passBox.appendChild(newNode);
         passBox.appendChild(br);
         passCount += 1;
